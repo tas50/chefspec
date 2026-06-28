@@ -161,7 +161,7 @@ module ChefSpec
       report = {}.tap do |h|
         h[:total]     = @collection.size
         h[:touched]   = @collection.count { |_, resource| resource.touched? }
-        h[:coverage]  = ((h[:touched] / h[:total].to_f) * 100).round(2)
+        h[:coverage]  = coverage_percentage(h[:touched], h[:total])
       end
 
       report[:untouched_resources] = @collection.collect do |_, resource|
@@ -178,6 +178,18 @@ module ChefSpec
     end
 
     private
+
+    #
+    # The percentage of covered resources, guarding against a division by zero
+    # when no resources were collected (which would otherwise produce NaN).
+    #
+    # @return [Float]
+    #
+    def coverage_percentage(touched, total)
+      return 0.0 if total == 0
+
+      ((touched / total.to_f) * 100).round(2)
+    end
 
     def find(resource)
       @collection[resource.to_s]
