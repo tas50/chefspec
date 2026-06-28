@@ -12,7 +12,7 @@ module ChefSpec::Matchers
       @resource = resource
 
       if @resource
-        block = Proc.new do |notified|
+        block = proc do |notified|
           resource_name(notified.resource).to_s == @expected_resource_type &&
             (@expected_resource_name === notified.resource.identity.to_s || @expected_resource_name === notified.resource.name.to_s) &&
             matches_action?(notified)

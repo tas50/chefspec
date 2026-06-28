@@ -10,7 +10,7 @@ module ChefSpec
   # @return [self]
   #
   def define_matcher(resource_name)
-    matchers[resource_name.to_sym] = Proc.new do |identity|
+    matchers[resource_name.to_sym] = proc do |identity|
       find_resource(resource_name, identity)
     end
 
