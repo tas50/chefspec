@@ -138,8 +138,12 @@ module ChefSpec::Matchers
     def matches_parameter?(parameter, expected)
       value = safe_send(parameter)
       if parameter == :source
-        # Chef 11+ stores the source parameter internally as an Array
-        Array(expected) == Array(value)
+        # Chef may store the source parameter internally as an Array. Match the
+        # expectation against the value directly first, so RSpec matchers and
+        # Regexps work against a scalar source, then fall back to comparing the
+        # array-normalized forms so a plain string still matches a single-element
+        # array source.
+        expected === value || Array(expected) == Array(value)
       elsif expected.is_a?(Class)
         # Ruby can't compare classes with ===
         expected == value

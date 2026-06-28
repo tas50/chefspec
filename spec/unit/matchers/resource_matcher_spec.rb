@@ -37,4 +37,39 @@ describe ChefSpec::Matchers::ResourceMatcher do
       expect(subject).not_to respond_to(:nonexistent_method)
     end
   end
+
+  describe "matching the :source parameter" do
+    subject { described_class.new(:windows_certificate, :create, "CN=example.com") }
+
+    # `matches_parameter?` is the private comparison that `.with(source: ...)`
+    # relies on. Drive it directly with a stubbed resource value.
+    def source_matches?(expected, actual_source)
+      allow(subject).to receive(:resource).and_return(double(source: actual_source))
+      subject.send(:matches_parameter?, :source, expected)
+    end
+
+    it "matches an exact string source" do
+      expect(source_matches?("C:/MyFile.pem", "C:/MyFile.pem")).to be(true)
+    end
+
+    it "matches a plain string against an array-valued source" do
+      expect(source_matches?("foo.erb", ["foo.erb"])).to be(true)
+    end
+
+    it "matches an exact array source" do
+      expect(source_matches?(%w{a b}, %w{a b})).to be(true)
+    end
+
+    it "matches an RSpec matcher against a scalar source (issue #980)" do
+      expect(source_matches?(end_with("MyFile.pem"), "C:/MyFile.pem")).to be(true)
+    end
+
+    it "matches a Regexp against a scalar source" do
+      expect(source_matches?(/MyFile\.pem/, "C:/MyFile.pem")).to be(true)
+    end
+
+    it "does not match when the matcher does not apply" do
+      expect(source_matches?(end_with("other.pem"), "C:/MyFile.pem")).to be(false)
+    end
+  end
 end
