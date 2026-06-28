@@ -3,9 +3,9 @@ module ChefSpec::Matchers
     include ChefSpec::Normalize
 
     def initialize(signature)
-      signature.match(/^([^\[]*)\[(.*)\]$/)
-      @expected_resource_type = $1
-      @expected_resource_name = $2
+      match = signature.match(/^([^\[]*)\[(.*)\]$/)
+      @expected_resource_type = match[1]
+      @expected_resource_name = match[2]
     end
 
     def matches?(resource)
