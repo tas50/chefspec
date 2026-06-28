@@ -17,6 +17,13 @@ Gem::Specification.new do |s|
   s.homepage      = "https://github.com/chef/chefspec"
   s.license       = "MIT"
 
+  s.metadata = {
+    "source_code_uri" => "https://github.com/chef/chefspec",
+    "changelog_uri" => "https://github.com/chef/chefspec/blob/main/CHANGELOG.md",
+    "bug_tracker_uri" => "https://github.com/chef/chefspec/issues",
+    "documentation_uri" => "https://github.com/chef/chefspec/blob/main/README.md",
+  }
+
   # Packaging
   s.files         = %w{LICENSE Rakefile Gemfile chefspec.gemspec} + Dir.glob("{lib,templates,spec}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   s.require_paths = ["lib"]
