@@ -39,6 +39,10 @@ module ChefSpec::Matchers
       end
     end
 
+    def respond_to_missing?(m, include_private = false)
+      m.to_s.match?(/^with_(.+)$/) || super
+    end
+
     def description
       %Q{#{@expected_action} #{@resource_name} "#{@expected_identity}"}
     end
