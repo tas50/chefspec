@@ -31,7 +31,4 @@ Gem::Specification.new do |s|
   # this needs to be remedied before Ruby 3.3
   s.add_dependency "logger", "< 1.6"
   s.add_development_dependency "cookstyle", "~> 8.4"
-
-  # temporary restriction to a version of rspec-expectations that includes the
-  # `RSpec::Matchers::ExpectedsForMultipleDiffs` class (renamed in 3.12.4)
 end

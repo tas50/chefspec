@@ -1,4 +1,3 @@
-# require "rspec/matchers/expecteds_for_multiple_diffs" This is now a private class and will throw errors when the require statement is executed
 require "rspec/expectations/fail_with"
 
 module ChefSpec::Matchers
@@ -66,8 +65,7 @@ module ChefSpec::Matchers
             "\n\n" \
             "  " + unmatched_parameters.collect { |parameter, h|
               msg = "#{parameter} #{h[:expected].inspect}, was #{h[:actual].inspect}"
-              diff = ::RSpec::Matchers::ExpectedsForMultipleDiffs.from(h[:expected]) \
-                .message_with_diff(message, ::RSpec::Expectations.differ, h[:actual])
+              diff = diff_for(h[:expected], h[:actual], message)
               msg += diff if diff
               msg
             }.join("\n  ")
@@ -94,6 +92,27 @@ module ChefSpec::Matchers
     end
 
     private
+
+    #
+    # Build the diff text for a mismatched parameter using rspec-expectations'
+    # private diff helper. That helper was renamed and its signature changed in
+    # rspec-expectations 3.12.4 (`ExpectedsForMultipleDiffs.from(expected)` with
+    # `message_with_diff(message, differ, actual)` became
+    # `MultiMatcherDiff.from(expected, actual)` with
+    # `message_with_diff(message, differ)`), so support both shapes.
+    #
+    # @return [String, nil]
+    #
+    def diff_for(expected, actual, message)
+      differ = ::RSpec::Expectations.differ
+      if defined?(::RSpec::Matchers::MultiMatcherDiff)
+        ::RSpec::Matchers::MultiMatcherDiff.from(expected, actual)
+          .message_with_diff(message, differ)
+      else
+        ::RSpec::Matchers::ExpectedsForMultipleDiffs.from(expected)
+          .message_with_diff(message, differ, actual)
+      end
+    end
 
     def unmatched_parameters
       return @_unmatched_parameters if @_unmatched_parameters
