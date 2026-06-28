@@ -1,6 +1,6 @@
 Contributing to ChefSpec
 ========================
-Pull requests are merged via Github, you can find the documentation about how to fork a repository and start contributing to ChefSpec here [https://help.github.com/articles/fork-a-repo](https://help.github.com/articles/fork-a-repo).
+Pull requests are merged via GitHub. If you're new to contributing, see GitHub's guide on [forking a repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) to get started.
 
 All contributions are welcome to be submitted for review for inclusion, but before they will be accepted, we ask that you follow these simple steps:
 
@@ -12,41 +12,47 @@ Also, please be patient as not all items will be tested or reviewed immediately 
 
 Please be receptive and responsive to feedback about your additions or changes. The core team and/or other community members may make suggestions or ask questions about your change. This is part of the review process, and helps everyone to understand what is happening, why it is happening, and potentially optimizes your code.
 
-If you're looking to contribute but aren't sure where to start, check out the [open issues](https://github.com/chefspec/chefspec/issues?state=open).
+If you're looking to contribute but aren't sure where to start, check out the [open issues](https://github.com/chef/chefspec/issues).
 
 
 Will Not Merge
 --------------
 This section details, specifically, Pull Requests or features that will _not_ be merged:
 
-1. Matchers for non-Chef core resources. ChefSpec 3.0 introduced a way for cookbook maintainers to [package matchers _with_ their cookbooks](https://github.com/chefspec/chefspec#packaging-custom-matchers) at distribution time.
-2. New features without accompanying unit tests, cucumber tests, and documentation.
+1. Matchers for non-Chef core resources. ChefSpec provides a way for cookbook maintainers to ship [custom matchers](https://github.com/chef/chefspec#chefspec-matchers) _with_ their cookbooks at distribution time.
+2. New features without accompanying unit tests and documentation.
 
 
 Coding Standards
 ----------------
-The submitted code should be compatible with the standard Ruby coding guidelines. Here are some additional resources:
+ChefSpec's code style is enforced with [Cookstyle](https://docs.chef.io/workstation/cookstyle/). Before submitting a pull request, please run the linter and fix any offenses:
 
- * [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
- * [Github Styleguide](https://github.com/styleguide/ruby)
+```sh
+bundle exec rake style
+```
 
-There is a tool called [Cane](https://github.com/square/cane) that allows you to validate your code's ABC complexity and documentation.
+This runs the same `cookstyle --chefstyle -c .rubocop.yml` check used in CI.
 
 
 Testing
 -------
 Whether your pull request is a bug fix or introduces new classes or methods to the project, we kindly ask that you include tests for your changes. Even if it's just a small improvement, a test is necessary to ensure the bug is never re-introduced.
 
-We understand that not all users submitting pull requests will be proficient with RSpec. The maintainers and community as a whole are a helpful group and can help you with writing tests. The [Better Specs](http://betterspecs.org/) site should provide some helpful resources to get you started.
+ChefSpec has two test suites, both runnable with Rake:
 
-ChefSpec is tested on [Travis CI](https://travis-ci.org/chefspec/chefspec) against multiple Chef Versions and Ruby Versions. **Your patches must work for all Chef and Ruby Versions on Travis.** This is in an effort to maintain backward compatibility as long as possible. For more information on which Chef and Ruby versions to support, checkout the [`.travis.yml`](https://github.com/chefspec/chefspec/blob/master/.travis.yml) file.
+```sh
+bundle exec rake unit        # fast RSpec unit tests in spec/
+bundle exec rake acceptance  # end-to-end example cookbooks in examples/
+bundle exec rake test        # run both
+```
+
+We understand that not all users submitting pull requests will be proficient with RSpec. The maintainers and community as a whole are a helpful group and can help you with writing tests. The [Better Specs](https://www.betterspecs.org/) site provides some helpful resources to get you started.
+
+ChefSpec is tested in [GitHub Actions](https://github.com/chef/chefspec/actions) against multiple Ruby versions. **Your patches must pass for all Ruby versions in the CI matrix.** This is in an effort to maintain backward compatibility as long as possible. See the [`.github/workflows/ci.yml`](https://github.com/chef/chefspec/blob/main/.github/workflows/ci.yml) file for the currently supported versions.
 
 
 Documentation
 -------------
-Documentation is a crucial part to ChefSpec, especially given its broad depth of features. All documentation is placed inline on the method matcher so it can be generated with Yard. Please see existing matchers for an example and check out the [Yard documentation](http://yardoc.info)
+Documentation is a crucial part to ChefSpec, especially given its broad depth of features. All documentation is placed inline on the method matcher so it can be generated with [YARD](https://yardoc.org/). Please see existing matchers for an example.
 
 When contributing new features, please ensure adequate documentation and examples are present.
-
----
-This contributing guide is based off of the [Joomla Contributing Guide](https://raw.github.com/joomla/joomla-framework/master/CONTRIBUTING.markdown).
