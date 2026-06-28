@@ -7,9 +7,6 @@ module ChefSpec
       # Pull in the needed machinery to use `before` here.
       extend RSpec::SharedContext
 
-      # Which version to use the shell_out_compacted hook on.
-      HAS_SHELLOUT_COMPACTED = Gem::Requirement.create("> 14.2")
-
       # Hook used in the monkey patches to set up a place to inject stubs when
       # needed for a resource or provider.
       #
@@ -97,12 +94,8 @@ module ChefSpec
           @stderr = stderr
           @status = fake_exitstatus
         end
-        # On newer Chef, we can intercept using the new, better shell_out_compact hook point.
-        shell_out_method ||= if HAS_SHELLOUT_COMPACTED.satisfied_by?(Gem::Version.create(Chef::VERSION))
-                               :shell_out_compacted
-                             else
-                               :shell_out
-                             end
+        # Intercept using the shell_out_compacted hook point.
+        shell_out_method ||= :shell_out_compacted
         with_args = cmd + (opts.empty? ? [any_args] : [hash_including(opts)])
         receive(shell_out_method).with(*with_args).and_return(fake_cmd)
       end
