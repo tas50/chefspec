@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.18 -->
-## [v9.4.18](https://github.com/chef/chefspec/tree/v9.4.18) (2026-08-21)
+<!-- latest_release 9.4.19 -->
+## [v9.4.19](https://github.com/chef/chefspec/tree/v9.4.19) (2026-08-21)
 
 #### Merged Pull Requests
-- Drop the logger &lt; 1.6 dependency pin [#45](https://github.com/chef/chefspec/pull/45) ([tas50](https://github.com/tas50))
+- Fix NaN coverage percentage when no resources are collected [#46](https://github.com/chef/chefspec/pull/46) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Fix NaN coverage percentage when no resources are collected [#46](https://github.com/chef/chefspec/pull/46) ([tas50](https://github.com/tas50)) <!-- 9.4.19 -->
 - Drop the logger &lt; 1.6 dependency pin [#45](https://github.com/chef/chefspec/pull/45) ([tas50](https://github.com/tas50)) <!-- 9.4.18 -->
 - Expand unit test coverage [#44](https://github.com/chef/chefspec/pull/44) ([tas50](https://github.com/tas50)) <!-- 9.4.17 -->
 - Use explicit MatchData captures instead of regex globals [#43](https://github.com/chef/chefspec/pull/43) ([tas50](https://github.com/tas50)) <!-- 9.4.16 -->
