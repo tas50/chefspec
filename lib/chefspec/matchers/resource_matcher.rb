@@ -77,7 +77,7 @@ module ChefSpec::Matchers
           " with action :#{@expected_action} to be in Chef run." \
           " Other #{@resource_name} resources:" \
           "\n\n" \
-          "  " + similar_resources.map(&:to_s).join("\n  ") + "\n "
+          "  " + similar_resources.join("\n  ") + "\n "
       end
     end
 
