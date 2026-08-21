@@ -27,4 +27,14 @@ describe ChefSpec::Matchers::ResourceMatcher do
       end
     end
   end
+
+  describe "#respond_to?" do
+    it "reports responding to dynamic with_* matcher methods" do
+      expect(subject).to respond_to(:with_owner)
+    end
+
+    it "does not report responding to unrelated missing methods" do
+      expect(subject).not_to respond_to(:nonexistent_method)
+    end
+  end
 end
