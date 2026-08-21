@@ -56,3 +56,23 @@ describe ChefSpec::Coverage::ResourceWrapper do
     end
   end
 end
+
+describe ChefSpec::Coverage do
+  subject(:coverage) { described_class.instance }
+
+  describe "#coverage_percentage" do
+    it "returns 0.0 when there are no resources instead of NaN" do
+      result = coverage.send(:coverage_percentage, 0, 0)
+      expect(result).to eq(0.0)
+      expect(result).not_to be_nan
+    end
+
+    it "calculates the touched percentage" do
+      expect(coverage.send(:coverage_percentage, 3, 4)).to eq(75.0)
+    end
+
+    it "rounds to two decimal places" do
+      expect(coverage.send(:coverage_percentage, 1, 3)).to eq(33.33)
+    end
+  end
+end
