@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.4 -->
-## [v9.4.4](https://github.com/chef/chefspec/tree/v9.4.4) (2026-08-21)
+<!-- latest_release 9.4.5 -->
+## [v9.4.5](https://github.com/chef/chefspec/tree/v9.4.5) (2026-08-21)
 
 #### Merged Pull Requests
-- Fix Style/MapJoin rubocop offense in resource_matcher [#48](https://github.com/chef/chefspec/pull/48) ([tpowell-progress](https://github.com/tpowell-progress))
+- Remove obsolete README_old.md [#39](https://github.com/chef/chefspec/pull/39) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Remove obsolete README_old.md [#39](https://github.com/chef/chefspec/pull/39) ([tas50](https://github.com/tas50)) <!-- 9.4.5 -->
 - Fix Style/MapJoin rubocop offense in resource_matcher [#48](https://github.com/chef/chefspec/pull/48) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 9.4.4 -->
 - CHEF-27645 Update and standardize copyright notices to Progress Software Corporation - copyright_update [#30](https://github.com/chef/chefspec/pull/30) ([clintoncwolfe](https://github.com/clintoncwolfe)) <!-- 9.4.3 -->
 - Update to actions/checkout@v6 [#28](https://github.com/chef/chefspec/pull/28) ([dafyddcrosby](https://github.com/dafyddcrosby)) <!-- 9.4.2 -->
