@@ -86,9 +86,18 @@ module ChefSpec::Matchers
     end
 
     def resource
-      @resource ||= @runner.find_resource(:cookbook_file, @path) ||
-        @runner.find_resource(:file, @path) ||
-        @runner.find_resource(:template, @path)
+      return @resource if defined?(@resource)
+
+      candidates = %i{cookbook_file file template}.filter_map do |type|
+        @runner.find_resource(type, @path)
+      end
+
+      # A recipe may declare more than one resource for the same path, most
+      # commonly a template that creates the file and a file resource that
+      # deletes it, with guards selecting between them. Prefer whichever
+      # resource actually creates the file so that we do not report the file as
+      # unrendered just because a sibling delete resource was found first.
+      @resource = candidates.find { |candidate| create_action?(candidate) } || candidates.first
     end
 
     #
@@ -99,6 +108,17 @@ module ChefSpec::Matchers
     # @return [true, false]
     #
     def has_create_action?
+      create_action?(resource)
+    end
+
+    #
+    # Determines if the given resource has a create-like action.
+    #
+    # @param [Chef::Resource] resource
+    #
+    # @return [true, false]
+    #
+    def create_action?(resource)
       %i{create create_if_missing}.any? { |action| resource.performed_action?(action) }
     end
 
