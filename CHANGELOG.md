@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.10 -->
-## [v9.4.10](https://github.com/chef/chefspec/tree/v9.4.10) (2026-08-21)
+<!-- latest_release 9.4.11 -->
+## [v9.4.11](https://github.com/chef/chefspec/tree/v9.4.11) (2026-08-21)
 
 #### Merged Pull Requests
-- Replace Proc.new with proc [#36](https://github.com/chef/chefspec/pull/36) ([tas50](https://github.com/tas50))
+- Test the full supported Ruby range in CI [#37](https://github.com/chef/chefspec/pull/37) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Test the full supported Ruby range in CI [#37](https://github.com/chef/chefspec/pull/37) ([tas50](https://github.com/tas50)) <!-- 9.4.11 -->
 - Replace Proc.new with proc [#36](https://github.com/chef/chefspec/pull/36) ([tas50](https://github.com/tas50)) <!-- 9.4.10 -->
 - Refresh README: fix stale versions, links, and Travis references [#35](https://github.com/chef/chefspec/pull/35) ([tas50](https://github.com/tas50)) <!-- 9.4.9 -->
 - Refresh CONTRIBUTING guide [#33](https://github.com/chef/chefspec/pull/33) ([tas50](https://github.com/tas50)) <!-- 9.4.8 -->
