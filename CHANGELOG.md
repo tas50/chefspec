@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.6 -->
-## [v9.4.6](https://github.com/chef/chefspec/tree/v9.4.6) (2026-08-21)
+<!-- latest_release 9.4.7 -->
+## [v9.4.7](https://github.com/chef/chefspec/tree/v9.4.7) (2026-08-21)
 
 #### Merged Pull Requests
-- Convert ISSUES.md into a GitHub issue form [#32](https://github.com/chef/chefspec/pull/32) ([tas50](https://github.com/tas50))
+- Fix NameError from removed rspec-expectations diff class (#13) [#31](https://github.com/chef/chefspec/pull/31) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Fix NameError from removed rspec-expectations diff class (#13) [#31](https://github.com/chef/chefspec/pull/31) ([tas50](https://github.com/tas50)) <!-- 9.4.7 -->
 - Convert ISSUES.md into a GitHub issue form [#32](https://github.com/chef/chefspec/pull/32) ([tas50](https://github.com/tas50)) <!-- 9.4.6 -->
 - Remove obsolete README_old.md [#39](https://github.com/chef/chefspec/pull/39) ([tas50](https://github.com/tas50)) <!-- 9.4.5 -->
 - Fix Style/MapJoin rubocop offense in resource_matcher [#48](https://github.com/chef/chefspec/pull/48) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 9.4.4 -->
