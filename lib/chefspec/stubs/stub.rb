@@ -9,7 +9,7 @@ module ChefSpec
       end
 
       def and_raise(exception)
-        @block = Proc.new { raise exception }
+        @block = proc { raise exception }
         self
       end
 
