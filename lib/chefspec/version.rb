@@ -1,3 +1,3 @@
 module ChefSpec
-  VERSION = "9.4.17".freeze
+  VERSION = "9.4.18".freeze
 end
