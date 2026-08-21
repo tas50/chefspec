@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.8 -->
-## [v9.4.8](https://github.com/chef/chefspec/tree/v9.4.8) (2026-08-21)
+<!-- latest_release 9.4.9 -->
+## [v9.4.9](https://github.com/chef/chefspec/tree/v9.4.9) (2026-08-21)
 
 #### Merged Pull Requests
-- Refresh CONTRIBUTING guide [#33](https://github.com/chef/chefspec/pull/33) ([tas50](https://github.com/tas50))
+- Refresh README: fix stale versions, links, and Travis references [#35](https://github.com/chef/chefspec/pull/35) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Refresh README: fix stale versions, links, and Travis references [#35](https://github.com/chef/chefspec/pull/35) ([tas50](https://github.com/tas50)) <!-- 9.4.9 -->
 - Refresh CONTRIBUTING guide [#33](https://github.com/chef/chefspec/pull/33) ([tas50](https://github.com/tas50)) <!-- 9.4.8 -->
 - Fix NameError from removed rspec-expectations diff class (#13) [#31](https://github.com/chef/chefspec/pull/31) ([tas50](https://github.com/tas50)) <!-- 9.4.7 -->
 - Convert ISSUES.md into a GitHub issue form [#32](https://github.com/chef/chefspec/pull/32) ([tas50](https://github.com/tas50)) <!-- 9.4.6 -->
