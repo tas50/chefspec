@@ -137,8 +137,10 @@ module ChefSpec::Matchers
 
     def matches_parameter?(parameter, expected)
       value = safe_send(parameter)
-      if parameter == :source
-        # Chef 11+ stores the source parameter internally as an Array
+      if parameter == :source && !RSpec::Matchers.is_a_matcher?(expected)
+        # Chef 11+ stores the source parameter internally as an Array. Skip the
+        # coercion for RSpec matchers, which need to be handed the value itself
+        # rather than being wrapped in an Array and compared for equality.
         Array(expected) == Array(value)
       elsif expected.is_a?(Class)
         # Ruby can't compare classes with ===

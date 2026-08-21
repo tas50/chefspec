@@ -33,4 +33,12 @@ describe 'template::create' do
   describe 'creates a template when specifying the identity attribute' do
     it { is_expected.to create_template('/tmp/identity_attribute') }
   end
+
+  describe 'matches the source attribute' do
+    it { is_expected.to create_template('/tmp/with_source').with(source: 'with_source.erb') }
+
+    it { is_expected.to create_template('/tmp/with_source').with(source: end_with('source.erb')) }
+    it { is_expected.to create_template('/tmp/with_source').with(source: match(/with_\w+\.erb/)) }
+    it { is_expected.to_not create_template('/tmp/with_source').with(source: end_with('other.erb')) }
+  end
 end

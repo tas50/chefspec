@@ -13,3 +13,7 @@ end
 template 'specifying the identity attribute' do
   path '/tmp/identity_attribute'
 end
+
+template '/tmp/with_source' do
+  source 'with_source.erb'
+end
