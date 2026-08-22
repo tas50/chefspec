@@ -4,7 +4,7 @@ module ChefSpec
       #
       # Assert that a file is rendered by the Chef run. This matcher works for
       # +template+, +file+, and +cookbook_file+ resources. The content from the
-      # resource must be convertable to a string; verifying the content of a
+      # resource must be convertible to a string; verifying the content of a
       # binary file is not permissible at this time.
       #
       # @example Assert a template is rendered

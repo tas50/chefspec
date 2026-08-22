@@ -644,7 +644,7 @@ Breaking:
 
 - `Runner#resources` converted from an Array to a Hash. This is to ensure that all resource actions are added (when multiple calls to run_action exist (#201)). This also drastically improves resource lookup times.
 
-- `Resource#actions` is no longer maniuplated. Instead, a new method `Resource#performed_actions` now keeps track of the actions taken on a resource (as well as the phase in which they were taken), preserving the original state of the resource.
+- `Resource#actions` is no longer manipulated. Instead, a new method `Resource#performed_actions` now keeps track of the actions taken on a resource (as well as the phase in which they were taken), preserving the original state of the resource.
 
 FEATURES:
 
@@ -713,7 +713,7 @@ BUG FIXES:
 - Better failure message for `create_remote_file` ([@tmatilai])
 - Add `cookbook_file` as an accepted type to the `create_file` matchers ([@dafyddcrosby])
 - Ensure formatter is only registered once ([@student])
-- Signifant README updates ([@phoolish])
+- Significant README updates ([@phoolish])
 - Fix `described_recipe` helper (S.R.Garcia)
 - Refactor Chef 10/11 template rendering ([@sethvargo])
 - Fix CI ([@sethvargo])

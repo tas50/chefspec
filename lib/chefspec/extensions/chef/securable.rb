@@ -5,7 +5,7 @@ class Chef
     module Securable
       # In Chef, this module is only included if the RUBY_PLATFORM is
       # Windows-like. In ChefSpec, we want to include this, regardless of the
-      # platform, becuase this module holds the `inherits` attribute, which is
+      # platform, because this module holds the `inherits` attribute, which is
       # critical in testing Windows resources.
       include WindowsSecurableAttributes
 
