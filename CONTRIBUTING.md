@@ -56,3 +56,19 @@ Documentation
 Documentation is a crucial part to ChefSpec, especially given its broad depth of features. All documentation is placed inline on the method matcher so it can be generated with [YARD](https://yardoc.org/). Please see existing matchers for an example.
 
 When contributing new features, please ensure adequate documentation and examples are present.
+
+**Every public class, module, constant, attribute, and method in `lib/` should carry a YARD comment.** You can check this before opening a pull request:
+
+```sh
+bundle exec rake yard:coverage  # report anything public that is undocumented
+bundle exec rake yard           # build the HTML docs into doc/
+```
+
+`rake yard:coverage` exits non-zero and names the offending `file:line` when something is missing, so it can also be wired into a local pre-commit hook if you find that useful.
+
+A few conventions worth knowing:
+
+- Docstrings use **RDoc markup**, not Markdown. Wrap inline code in plus signs (`+template+`), not backticks.
+- Use `{ChefSpec::Matchers::LinkToMatcher}` to link to something defined in this gem. For classes that live in another gem, such as `+Chef::Resource+` or `+Mash+`, use plus signs — YARD cannot resolve a link to a class it has not parsed, and doing so adds a build warning.
+- A docstring made up of nothing but tags counts as undocumented. `# @api private` on its own will not satisfy the check; add a sentence explaining what the object is for alongside the tag.
+- Private and protected methods are not required to have comments, though they are welcome.

@@ -6,6 +6,19 @@ require "chef/providers"
 require "chef/resources"
 
 module ChefSpec
+  #
+  # Converges a recipe in memory, with no Chef Infra Server.
+  #
+  # This is the default runner. It builds a Fauxhai node for the requested
+  # platform, compiles the run list, and records the resulting resource
+  # collection for matchers to assert against. No provider actually runs.
+  #
+  # @example
+  #   describe "example::default" do
+  #     platform "ubuntu"
+  #     let(:chef_run) { ChefSpec::SoloRunner.converge(described_recipe) }
+  #   end
+  #
   class SoloRunner
     #
     # Handy class method for just converging a runner if you do not care about

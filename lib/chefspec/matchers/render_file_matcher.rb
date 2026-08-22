@@ -1,11 +1,38 @@
 module ChefSpec::Matchers
+  #
+  # Asserts that the Chef run rendered a file at a given path.
+  #
+  # Built by {ChefSpec::API::RenderFile#render_file}. The path may be backed by
+  # a +cookbook_file+, +file+, or +template+ resource; chain {#with_content} to
+  # also assert on what was written.
+  #
+  # @example
+  #   expect(chef_run).to render_file("/etc/foo").with_content("bar")
+  #
   class RenderFileMatcher
     attr_reader :expected_content
+    #
+    # Create a new matcher for the given path.
+    #
+    # @param [String] path
+    #   the path the Chef run is expected to render
+    #
     def initialize(path)
       @path = path
       @expected_content = []
     end
 
+    #
+    # Determine whether the file was rendered with the expected content.
+    #
+    # Marks the backing resource as covered in the coverage report as a side
+    # effect.
+    #
+    # @param [ChefSpec::SoloRunner, ChefSpec::ServerRunner] runner
+    #   the converged runner to inspect
+    #
+    # @return [true, false]
+    #
     def matches?(runner)
       @runner = runner
 
@@ -17,6 +44,31 @@ module ChefSpec::Matchers
       end
     end
 
+    #
+    # Assert on the rendered content of the file.
+    #
+    # May be chained more than once, in which case every expectation must pass.
+    # Exactly one of +expected_content+ or a block must be given.
+    #
+    # @example Matching a substring
+    #   expect(chef_run).to render_file("/etc/foo").with_content("bar")
+    #
+    # @example Matching with a block
+    #   expect(chef_run).to render_file("/etc/foo").with_content { |content|
+    #     expect(content).to include("bar")
+    #   }
+    #
+    # @param [String, Regexp, RSpec::Matchers::BuiltIn::BaseMatcher] expected_content
+    #   the content to match against the rendered file
+    #
+    # @yieldparam [String] content
+    #   the rendered content, for making arbitrary assertions
+    #
+    # @raise [ArgumentError]
+    #   if both a value and a block are given, or neither is
+    #
+    # @return [self]
+    #
     def with_content(expected_content = nil, &block)
       if expected_content && block
         raise ArgumentError, "Cannot specify expected content and a block!"
@@ -31,6 +83,12 @@ module ChefSpec::Matchers
       self
     end
 
+    #
+    # The RSpec description for this matcher, used when an example has no
+    # explicit doc string.
+    #
+    # @return [String]
+    #
     def description
       message = %Q{render file "#{@path}"}
       @expected_content.each do |expected|
@@ -43,6 +101,11 @@ module ChefSpec::Matchers
       message
     end
 
+    #
+    # The message shown when the matcher was expected to match but did not.
+    #
+    # @return [String]
+    #
     def failure_message
       message = %Q{expected Chef run to render "#{@path}"}
       unless @expected_content.empty?
@@ -58,6 +121,11 @@ module ChefSpec::Matchers
       message
     end
 
+    #
+    # The message shown when the matcher was expected not to match but did.
+    #
+    # @return [String]
+    #
     def failure_message_when_negated
       message = %Q{expected file "#{@path}"}
       unless @expected_content.empty?

@@ -27,6 +27,12 @@ module ChefSpec::Extensions::Chef::Resource
     end
   end
 
+  #
+  # Duplicate the resource, re-registering +stubs_for+ hooks when the copy is
+  # being made on behalf of +load_current_value+.
+  #
+  # @return [Chef::Resource]
+  #
   def dup
     return super unless $CHEFSPEC_MODE
 
@@ -73,6 +79,15 @@ module ChefSpec::Extensions::Chef::Resource
     @performed_actions[action.to_sym].merge!(options)
   end
 
+  #
+  # The options recorded when the resource performed the given action.
+  #
+  # @param [Symbol, String] action
+  #   the action to look up
+  #
+  # @return [Hash, nil]
+  #   the recorded options, or +nil+ if the action was never performed
+  #
   def performed_action(action)
     @performed_actions ||= {}
     @performed_actions[action.to_sym]
@@ -86,6 +101,11 @@ module ChefSpec::Extensions::Chef::Resource
     end
   end
 
+  #
+  # Every action the resource performed during the Chef run.
+  #
+  # @return [Array<Symbol>]
+  #
   def performed_actions
     @performed_actions ||= {}
     @performed_actions.keys
@@ -101,12 +121,28 @@ module ChefSpec::Extensions::Chef::Resource
     end
   end
 
+  #
+  # Prepended onto every resource's singleton class so that declaring a
+  # resource name, provides line, or action automatically defines the
+  # matching ChefSpec matcher.
+  #
+  # This is what makes +create_my_resource("foo")+ work for a custom resource
+  # without any extra registration.
+  #
   module ClassMethods
     # XXX: kind of a crappy way to find all the names of a resource
     def provides_names
       @provides_names ||= []
     end
 
+    #
+    # Record the resource name and define matchers for its allowed actions.
+    #
+    # @param [Symbol] name
+    #   the resource name being declared
+    #
+    # @return [Symbol]
+    #
     def resource_name(name = ::Chef::NOT_PASSED)
       unless name == ::Chef::NOT_PASSED
         provides_names << name unless provides_names.include?(name)
@@ -115,22 +151,60 @@ module ChefSpec::Extensions::Chef::Resource
       super
     end
 
+    #
+    # Record the provided name and define matchers for its allowed actions.
+    #
+    # @param [Symbol] name
+    #   the resource name being provided
+    #
+    # @param [Hash] options
+    #   the platform filters passed through to Chef
+    #
+    # @return [void]
+    #
     def provides(name, **options, &block)
       provides_names << name unless provides_names.include?(name)
       inject_actions(*allowed_actions)
       super
     end
 
+    #
+    # Define an action and its corresponding ChefSpec matcher.
+    #
+    # @param [Symbol] sym
+    #   the action being defined
+    #
+    # @param [String, nil] description
+    #   the action description passed through to Chef
+    #
+    # @return [void]
+    #
     def action(sym, description: nil, &block)
       inject_actions(sym)
       super(sym, &block)
     end
 
+    #
+    # Declare allowed actions and define matchers for each of them.
+    #
+    # @param [Array<Symbol>] actions
+    #   the actions to allow
+    #
+    # @return [Array<Symbol>]
+    #
     def allowed_actions(*actions)
       inject_actions(*actions) unless actions.empty?
       super
     end
 
+    #
+    # Replace the allowed actions and define matchers for each of them.
+    #
+    # @param [Array<Symbol>, Symbol] value
+    #   the actions to allow
+    #
+    # @return [Array<Symbol>]
+    #
     def allowed_actions=(value)
       inject_actions(*Array(value))
       super

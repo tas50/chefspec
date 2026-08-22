@@ -1,4 +1,7 @@
 module ChefSpec
+  #
+  # Small string helpers shared across ChefSpec.
+  #
   module Util
     extend self
 
