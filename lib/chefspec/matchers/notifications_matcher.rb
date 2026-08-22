@@ -12,6 +12,12 @@ module ChefSpec::Matchers
       @resource = resource
 
       if @resource
+        # Notifications stay declared on a resource even when a guard stopped
+        # its action from running, but Chef only delivers them when the action
+        # actually runs. This deliberately does not cover `action :nothing`
+        # resources, which still notify when they are themselves notified.
+        return false if @resource.performed_actions.empty? && @resource.skipped_actions.any?
+
         block = proc do |notified|
           resource_name(notified.resource).to_s == @expected_resource_type &&
             (@expected_resource_name === notified.resource.identity.to_s || @expected_resource_name === notified.resource.name.to_s) &&

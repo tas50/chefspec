@@ -49,7 +49,13 @@ module ChefSpec::Extensions::Chef::Resource
 
     ChefSpec::Coverage.add(self)
 
-    unless should_skip?(action)
+    if should_skip?(action)
+      # should_skip? is also true for `action :nothing`, via Chef's
+      # ConditionalActionNotNothing, which is not a guard refusing to run the
+      # resource. Only record real guard skips so that matchers can tell the
+      # two apart.
+      perform_skipped_action(action) unless action.to_sym == :nothing
+    else
       if node.runner.step_into?(self)
         instance_eval { @not_if = []; @only_if = [] }
         super
@@ -89,6 +95,20 @@ module ChefSpec::Extensions::Chef::Resource
   def performed_actions
     @performed_actions ||= {}
     @performed_actions.keys
+  end
+
+  def perform_skipped_action(action)
+    @skipped_actions ||= []
+    @skipped_actions |= [action.to_sym]
+  end
+
+  #
+  # The actions that did not run because a guard refused them.
+  #
+  # @return [Array<Symbol>]
+  #
+  def skipped_actions
+    @skipped_actions ||= []
   end
 
   #
