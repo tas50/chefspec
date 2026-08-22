@@ -10,6 +10,7 @@ module ChefSpec
     # @return [ChefZero::Server]
     #
     def server
+      ChefSpec::ZeroServer.setup!
       ChefSpec::ZeroServer.server
     end
 
