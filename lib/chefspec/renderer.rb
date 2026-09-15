@@ -96,6 +96,23 @@ module ChefSpec
           node: chef_run.node,
           template_finder: template_finder(chef_run, cookbook_name),
         }.merge(variables))
+        # Chef's template provider exposes a handful of helper variables to
+        # every template, so templates that reference them render empty under
+        # ChefSpec unless we do the same. See
+        # Chef::Provider::Template::Content#file_for_provider. Variables set on
+        # the resource take precedence.
+        {
+          cookbook_name: template.cookbook_name,
+          recipe_name: template.recipe_name,
+          recipe_line_string: template.source_line,
+          recipe_path: template.source_line_file,
+          recipe_line: template.source_line_number,
+          template_name: template.source,
+          template_path: template_location,
+        }.each do |key, value|
+          template_context[key] = value unless template_context.keys.include?(key)
+        end
+
         if template.respond_to?(:helper_modules) # Chef 11.4+
           template_context._extend_modules(template.helper_modules)
         end

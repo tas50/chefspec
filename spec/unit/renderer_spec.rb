@@ -10,7 +10,18 @@ describe ChefSpec::Renderer do
   end
 
   let(:chef_run) { double("chef_run", { node: "node" }) }
-  let(:resource) { double("resource", { cookbook: "cookbook", source: "source", variables: { x: "y", foo: Chef::DelayedEvaluator.new { "bar" } } }) }
+  let(:resource) do
+    double("resource", {
+      cookbook: "cookbook",
+      source: "source",
+      variables: { x: "y", foo: Chef::DelayedEvaluator.new { "bar" } },
+      cookbook_name: "cookbook",
+      recipe_name: "default",
+      source_line: "/recipes/default.rb:1:in `from_file'",
+      source_line_file: "/recipes/default.rb",
+      source_line_number: "1",
+    })
+  end
   subject { described_class.new(chef_run, resource) }
 
   describe "#content" do
@@ -59,7 +70,7 @@ describe ChefSpec::Renderer do
       allow(resource).to receive(:helper_modules).and_return([Module.new])
       allow(resource).to receive(:resource_name).and_return("template")
 
-      chef_template_context = double("context", { render_template: "rendered template content", update: nil })
+      chef_template_context = double("context", { render_template: "rendered template content", update: nil, keys: [], :[]= => nil })
       allow(Chef::Mixin::Template::TemplateContext).to receive(:new).and_return(chef_template_context)
 
       expect(chef_template_context).to receive(:_extend_modules).with(resource.helper_modules)
