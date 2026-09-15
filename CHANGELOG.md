@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.23 -->
-## [v9.4.23](https://github.com/chef/chefspec/tree/v9.4.23) (2026-09-15)
+<!-- latest_release 9.4.24 -->
+## [v9.4.24](https://github.com/chef/chefspec/tree/v9.4.24) (2026-09-15)
 
 #### Merged Pull Requests
-- Render the creating resource when a path has several resources [#49](https://github.com/chef/chefspec/pull/49) ([tas50](https://github.com/tas50))
+- Expose Chef&#39;s template helper variables when rendering [#51](https://github.com/chef/chefspec/pull/51) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Expose Chef&#39;s template helper variables when rendering [#51](https://github.com/chef/chefspec/pull/51) ([tas50](https://github.com/tas50)) <!-- 9.4.24 -->
 - Render the creating resource when a path has several resources [#49](https://github.com/chef/chefspec/pull/49) ([tas50](https://github.com/tas50)) <!-- 9.4.23 -->
 - Do not report notifications from guard skipped resources [#55](https://github.com/chef/chefspec/pull/55) ([tas50](https://github.com/tas50)) <!-- 9.4.22 -->
 - Exclude the Windows gemspec from the chef git source [#56](https://github.com/chef/chefspec/pull/56) ([tas50](https://github.com/tas50)) <!-- 9.4.21 -->
