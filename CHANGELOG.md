@@ -1,14 +1,15 @@
-<!-- latest_release 9.4.21 -->
-## [v9.4.21](https://github.com/chef/chefspec/tree/v9.4.21) (2026-09-15)
+<!-- latest_release 9.4.22 -->
+## [v9.4.22](https://github.com/chef/chefspec/tree/v9.4.22) (2026-09-15)
 
 #### Merged Pull Requests
-- Exclude the Windows gemspec from the chef git source [#56](https://github.com/chef/chefspec/pull/56) ([tas50](https://github.com/tas50))
+- Do not report notifications from guard skipped resources [#55](https://github.com/chef/chefspec/pull/55) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=9.3.8 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Do not report notifications from guard skipped resources [#55](https://github.com/chef/chefspec/pull/55) ([tas50](https://github.com/tas50)) <!-- 9.4.22 -->
 - Exclude the Windows gemspec from the chef git source [#56](https://github.com/chef/chefspec/pull/56) ([tas50](https://github.com/tas50)) <!-- 9.4.21 -->
 - Support matchers and regexps for the source property (#980) [#47](https://github.com/chef/chefspec/pull/47) ([tas50](https://github.com/tas50)) <!-- 9.4.20 -->
 - Fix NaN coverage percentage when no resources are collected [#46](https://github.com/chef/chefspec/pull/46) ([tas50](https://github.com/tas50)) <!-- 9.4.19 -->
