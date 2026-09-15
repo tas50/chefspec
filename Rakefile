@@ -45,7 +45,10 @@ namespace :acceptance do |ns|
 
           #
           # This bit of mildly awful magic below is to load each file into an in-memory
-          # RSpec runner while keeping a persistent ChefZero server alive.
+          # RSpec runner. RSpec.reset drops the configuration between example
+          # directories, which takes ChefSpec's own hooks with it, so the hooks
+          # below re-register them for every directory and have to mirror the set
+          # in lib/chefspec/zero_server.rb.
           #
           load "#{pwd}/lib/chefspec/rspec.rb"
 
@@ -54,11 +57,13 @@ namespace :acceptance do |ns|
             config.color = true
             config.run_all_when_everything_filtered = true
             config.filter_run(:focus)
-            config.before(:suite) do
-              ChefSpec::ZeroServer.setup!
-            end
+            # No before(:suite) hook: the server starts on demand, so a directory
+            # that only uses the SoloRunner never starts one.
             config.after(:each) do
               ChefSpec::ZeroServer.reset!
+            end
+            config.after(:suite) do
+              ChefSpec::ZeroServer.teardown!
             end
           end
 
