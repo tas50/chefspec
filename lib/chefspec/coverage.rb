@@ -41,7 +41,7 @@ module ChefSpec
     end
 
     #
-    # Start the coverage reporting analysis. This method also adds the the
+    # Start the coverage reporting analysis. This method also adds the
     # +at_exit+ handler for printing the coverage report.
     #
     def start!(&block)
@@ -91,7 +91,7 @@ module ChefSpec
     end
 
     #
-    # Change the template for reporting of converage analysis.
+    # Change the template for reporting of coverage analysis.
     #
     # @param [string] path
     #   The template file to use for the output of the report

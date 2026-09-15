@@ -155,7 +155,7 @@ module ChefSpec
     # Return a new instance of the TemplateFinder if we are running on Chef 11.
     #
     # @param [Chef::RunContext] chef_run
-    #   the run context for the noe
+    #   the run context for the node
     # @param [String] cookbook_name
     #   the name of the cookbook
     #

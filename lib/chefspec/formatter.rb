@@ -170,7 +170,7 @@ module ChefSpec
       file_load_failed(path, exception)
     end
 
-    # Called when resource defintions are done loading
+    # Called when resource definitions are done loading
     def definition_load_complete; end
 
     # Called before recipes are loaded

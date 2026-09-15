@@ -50,7 +50,7 @@ describe ChefSpec::Renderer do
   end
 
   describe "content_from_template" do
-    it "renders the template by extending modules for rendering paritals within the template" do
+    it "renders the template by extending modules for rendering partials within the template" do
       cookbook_collection = {}
       cookbook_collection["cookbook"] = double("", { preferred_filename_on_disk_location: "/template/location" } )
       allow(subject).to receive(:cookbook_collection).with("node").and_return(cookbook_collection)
@@ -68,7 +68,7 @@ describe ChefSpec::Renderer do
   end
 
   describe "content_from_template with lazy/DelayedEvaluator" do
-    it "renders the template by extending modules for rendering paritals within the template" do
+    it "renders the template by extending modules for rendering partials within the template" do
       cookbook_collection = {}
       cookbook_collection["cookbook"] = double("", { preferred_filename_on_disk_location: "/template/location" } )
       allow(subject).to receive(:cookbook_collection).with("node").and_return(cookbook_collection)
