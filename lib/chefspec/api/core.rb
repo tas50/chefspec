@@ -31,8 +31,8 @@ module ChefSpec
       let(:chefspec_normal_attributes) { chefspec_attributes(:normal_attributes) }
       let(:chefspec_override_attributes) { chefspec_attributes(:override_attributes) }
       let(:chefspec_automatic_attributes) { chefspec_attributes(:automatic_attributes) }
-      let(:chefspec_platform) { nil }
-      let(:chefspec_platform_version) { nil }
+      let(:chefspec_platform) { RSpec.configuration.platform }
+      let(:chefspec_platform_version) { RSpec.configuration.version }
 
       # Compute the options for the runner.
       #
