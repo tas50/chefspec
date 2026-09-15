@@ -1,5 +1,11 @@
 module ChefSpec
   class Coverage
+    #
+    # Base class for filters that exclude resources from the coverage report.
+    #
+    # Subclasses must override {#matches?}. Filters are registered with
+    # +ChefSpec::Coverage.add_filter+.
+    #
     class Filter
       def initialize(filter)
         @filter = filter

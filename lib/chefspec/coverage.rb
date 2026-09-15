@@ -1,11 +1,37 @@
 require_relative "coverage/filters"
 
 module ChefSpec
+  #
+  # Tracks which resources in the cookbook were exercised by the test suite.
+  #
+  # This is a singleton that resources register themselves with as they run.
+  # {.method_added} forwards every public instance method to the singleton, so
+  # the whole API is usable as +ChefSpec::Coverage.report!+ and friends.
+  #
+  # @example Enabling coverage reporting in +spec_helper.rb+
+  #   ChefSpec::Coverage.start!
+  #
   class Coverage
+    #
+    # Process exit status used when the run failed.
+    #
     EXIT_FAILURE = 1
+    #
+    # Process exit status used when the run succeeded.
+    #
     EXIT_SUCCESS = 0
 
     class << self
+      #
+      # Forward newly defined public instance methods to the singleton, so callers
+      # can use +ChefSpec::Coverage.foo+ rather than
+      # +ChefSpec::Coverage.instance.foo+.
+      #
+      # @param [Symbol] name
+      #   the name of the method that was just defined
+      #
+      # @return [void]
+      #
       def method_added(name)
         # Only delegate public methods
         if method_defined?(name)
@@ -199,6 +225,12 @@ module ChefSpec
       !find(resource).nil?
     end
 
+    #
+    # Wraps a +Chef::Resource+ with the bookkeeping the coverage report needs.
+    #
+    # Records where the resource was declared and whether any matcher touched it
+    # during the run.
+    #
     class ResourceWrapper
       attr_reader :resource
 
@@ -206,10 +238,20 @@ module ChefSpec
         @resource = resource
       end
 
+      #
+      # The string form of the wrapped resource, such as +template[/etc/foo]+.
+      #
+      # @return [String]
+      #
       def to_s
         @resource.to_s
       end
 
+      #
+      # The wrapped resource as a JSON object, used by the JSON coverage report.
+      #
+      # @return [String]
+      #
       def to_json
         {
           "source_file" => source_file,
@@ -219,6 +261,12 @@ module ChefSpec
         }.to_json
       end
 
+      #
+      # The cookbook-relative path of the file that declared the resource.
+      #
+      # @return [String]
+      #   the shortened path, or +"Unknown"+ if the resource has no source line
+      #
       def source_file
         @source_file ||= if @resource.source_line
                            shortname(@resource.source_line.split(":").first)
@@ -227,6 +275,12 @@ module ChefSpec
                          end
       end
 
+      #
+      # The line number the resource was declared on.
+      #
+      # @return [Integer, String]
+      #   the line number, or +"Unknown"+ if the resource has no source line
+      #
       def source_line
         @source_line ||= if @resource.source_line
                            @resource.source_line.split(":", 2).last.to_i
@@ -235,6 +289,11 @@ module ChefSpec
                          end
       end
 
+      #
+      # Mark the resource as exercised by the test suite.
+      #
+      # @return [true]
+      #
       def touch!
         @touched = true
       end

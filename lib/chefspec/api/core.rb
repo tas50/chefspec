@@ -205,6 +205,14 @@ module ChefSpec
           @chefspec_step_into |= resources.flatten.map(&:to_s)
         end
 
+        # Extend the example group with {ClassMethods}, and default its subject
+        # to the Chef run when the describe block targets a recipe, resource, or
+        # provider.
+        #
+        # @param [Class] klass
+        #   the example group including this module
+        # @return [void]
+        #
         # @api private
         def included(klass)
           super

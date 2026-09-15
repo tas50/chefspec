@@ -1,5 +1,10 @@
 module ChefSpec
   module API
+    #
+    # Provides the +render_file+ matcher for asserting on rendered file content.
+    #
+    # Mixed into every example group by {ChefSpec::API.included}.
+    #
     module RenderFile
       #
       # Assert that a file is rendered by the Chef run. This matcher works for

@@ -1,6 +1,16 @@
 require "rspec"
 
+#
+# Namespace for the monkey patches ChefSpec applies to Chef and Ohai.
+#
+# These are what stop a converge from touching the real system: shelling out,
+# uploading cookbooks, and running providers are all intercepted here. The
+# require order below is load-bearing.
+#
 module ChefSpec::Extensions
+  #
+  # Patches applied to Chef itself.
+  #
   module Chef
   end
 end

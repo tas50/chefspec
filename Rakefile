@@ -10,6 +10,13 @@ require "chef/version"
 
 YARD::Rake::YardocTask.new
 
+namespace :yard do
+  desc "Verify that every public object in lib/ has YARD documentation."
+  task :coverage do
+    ruby File.join(__dir__, "tasks", "yard_coverage.rb")
+  end
+end
+
 RSpec::Core::RakeTask.new(:unit) do |t|
   t.rspec_opts = [].tap do |a|
     a.push("--color")

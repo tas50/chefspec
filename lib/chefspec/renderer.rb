@@ -5,6 +5,13 @@ rescue LoadError
 end
 
 module ChefSpec
+  #
+  # Renders the content a +template+, +file+, or +cookbook_file+ resource would
+  # have written, without touching the filesystem.
+  #
+  # Backs {ChefSpec::Matchers::RenderFileMatcher}. Templates are evaluated with
+  # the same helper modules and variables Chef would use.
+  #
   class Renderer
     include ChefSpec::Normalize
 
